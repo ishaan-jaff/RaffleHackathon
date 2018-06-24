@@ -1,0 +1,84 @@
+'use strict';
+
+var RaffleContract = function () {
+};
+
+RaffleContract.prototype = {
+  init: function (price) {
+  	LocalContractStorage.set("organizer", Blockchain.transaction.from);
+  	var prizeValue = Blockchain.transaction.value;
+	if(!prizeValue) prizeValue = 0;
+	LocalContractStorage.set("prizeValue", new BigNumber(prizeValue));
+	LocalContractStorage.set("price", new BigNumber(price));
+	LocalContractStorage.set("tickets", []);
+	
+	//TODO: Organizer fee, platform fee
+  },
+
+  getPrice:function(){return LocalContractStorage.get("price");},
+  
+  buyTickets: function (count) {
+    var from = Blockchain.transaction.from;//Get the from address. Blockchain is a built in function with different objects associated with this function (e.g. transaction.from). 
+    var value = new BigNumber(Blockchain.transaction.value);//.times(0.000000000000000001);//Get the value of the tx
+	
+	var price = new BigNumber(LocalContractStorage.get("price"));
+	
+    if(value < price.times(count)) return "FAIL2: " + value + "   price: "+ price+"    count: "+count+"   price*count:"+price.times(count);
+	
+	var prizeValue = new BigNumber(LocalContractStorage.get("prizeValue"));
+	var tickets = LocalContractStorage.get("tickets");
+
+    prizeValue = prizeValue.plus(value);
+
+    for (var i = count; i > 0; i--) {
+    	tickets.push(from);
+    }
+	
+	LocalContractStorage.set("prizeValue", prizeValue);
+	LocalContractStorage.set("tickets", tickets);
+
+	console.log ("TESTING: func: buyTickets | = "+from);//NEW Logging Line
+	
+	return "Bought "+count+" tickets for "+from +"     PRIZE: "+prizeValue;
+  },
+
+  finishRaffle: function (value) {//Define the takeout function
+    var from = Blockchain.transaction.from;//Get the from address. Blockchain is a built in function with different objects associated with this function (e.g. transaction.from). 
+	
+	var organizer = LocalContractStorage.get("organizer");
+	
+	if(from != organizer) return;
+	
+	var prizeValue = new BigNumber(LocalContractStorage.get("prizeValue"));
+	var tickets = LocalContractStorage.get("tickets");
+	
+	if(tickets.length < 1) return "NO one in raffle.";
+	
+	var totalTickets = tickets.length;
+	var winnerAddress = tickets[Math.floor(Math.random() * totalTickets)];
+	
+    var result = Blockchain.transfer(winnerAddress, prizeValue);
+    if (!result) {
+      throw new Error("transfer failed.");
+    }
+    Event.Trigger("Raffle", {
+      Transfer: {
+        from: Blockchain.transaction.to,
+        to: winnerAddress,
+        value: prizeValue
+      }
+    });
+	
+	LocalContractStorage.set("tickets", []);
+	LocalContractStorage.set("prizeValue", new BigNumber(0));
+	
+	
+	return "Winner is: "+winnerAddress+" prize is: "+prizeValue;
+  },
+
+  getBalance: function () {
+  	var prizeValue = LocalContractStorage.get("prizeValue");
+    return "Current prize: "+prizeValue;
+  }
+};
+module.exports = RaffleContract;
