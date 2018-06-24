@@ -63,26 +63,34 @@
 		var NebPay = require("nebpay");
     var nebPay = new NebPay();    
     var serialNumber;
+	
+	function listener(resp) {}
+	
     var options = {
         goods: {        //commodity description
             name: "example"
         },
         callback: NebPay.config.testnetUrl,   //tx result query server address
-        listener: undefined //specify a listener function for browser extension, which will handle the tx result
+        listener: listener //specify a listener function for browser extension, which will handle the tx result
     }
     //serialNumber = nebPay.pay("nnmXdmwuo5jJRExnZR5rbceMEyzRsPeALgm", 0, options); //a serialNumber will be returned when calling the NebPay API, then you can query the tx result with this SerialNumber
-	serialNumber = nebPay.pay("n1xXvdLW9WJYaca1tfraEYM46LaGTAnDmpe", 0, options);
-	}
+	//serialNumber = nebPay.pay("n1xXvdLW9WJYaca1tfraEYM46LaGTAnDmpe", 0, options);
+	
 	
 	//args = [document.getElementById("Name").value]
-	args = []
+	//args = []
+	//args = json.stringify(["San Jose"])
+	args = "[\"San Jose\"]"
 	
 	//nebPay.call("n1ewAReUrxUZUKYpDnLGq9bqUvw2Q8KzBsg", 0, "who", args, options)
-	nebPay.call("n1xXvdLW9WJYaca1tfraEYM46LaGTAnDmpe", 0, "who", args, options)
+	//nebPay.call("n1xXvdLW9WJYaca1tfraEYM46LaGTAnDmpe", 0, "who", args, options)
+	//nebPay.call("n1qNDHQJBwC9tNYr3WE4LxS2pEsA9nxx6CX", 0, "who2", args, options)
+	nebPay.call("n1w8CfAqiTzcNMqPByDuEg2uqarcjYaDtRW", 0, "buyTicket", args, options)
 	/*
 	window.onload = function(){
 	calcPrice();
 	}*/
+	}
         </script>
 
 		<!-- Sidebar -->
