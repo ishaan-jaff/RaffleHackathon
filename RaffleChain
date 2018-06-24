@@ -1,3 +1,21 @@
+Skip to content
+
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ @ji42
+Sign out
+1
+0 1 ji42/RaffleHackathon
+ Code  Issues 0  Pull requests 1  Projects 0  Wiki  Insights  Settings
+RaffleHackathon/RaffleChain
+92cd4bf  8 minutes ago
+@kkanikaram kkanikaram Create RaffleChain
+
+209 lines (198 sloc)  7.47 KB
 <!DOCTYPE HTML>
 <!--
 	Hyperspace by HTML5 UP
@@ -36,6 +54,11 @@
 						<div class="inner">
 							<h1>RaffleChain</h1>
 							<p>A futuristic way to pay for entering a Raffle<a href="http://html5up.net/license"></a>.</p>
+              <p>The current price for one Raffle Ticket is 0.1 NAS</p>
+              <div class="ticketNumber">
+                <label for="ticketNum">Enter the number of tickets you would like to buy</label>
+                <input type="text" id="ticketNum" name="ticketNum"
+              </div>
 							<ul class="actions">
 								<li><a href="#one" class="button scrolly">Enter the Raffle!</a></li>
 							</ul>
@@ -206,3 +229,16 @@
 
 	</body>
 </html>
+© 2018 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+API
+Training
+Shop
+Blog
+About
+Press h to open a hovercard with more details.
