@@ -70,8 +70,15 @@
         callback: NebPay.config.testnetUrl,   //tx result query server address
         listener: undefined //specify a listener function for browser extension, which will handle the tx result
     }
-    serialNumber = nebPay.pay("nnmXdmwuo5jJRExnZR5rbceMEyzRsPeALgm", 0, options); //a serialNumber will be returned when calling the NebPay API, then you can query the tx result with this SerialNumber
+    //serialNumber = nebPay.pay("nnmXdmwuo5jJRExnZR5rbceMEyzRsPeALgm", 0, options); //a serialNumber will be returned when calling the NebPay API, then you can query the tx result with this SerialNumber
+	serialNumber = nebPay.pay("n1xXvdLW9WJYaca1tfraEYM46LaGTAnDmpe", 0, options);
 	}
+	
+	//args = [document.getElementById("Name").value]
+	args = []
+	
+	//nebPay.call("n1ewAReUrxUZUKYpDnLGq9bqUvw2Q8KzBsg", 0, "who", args, options)
+	nebPay.call("n1xXvdLW9WJYaca1tfraEYM46LaGTAnDmpe", 0, "who", args, options)
 	/*
 	window.onload = function(){
 	calcPrice();
@@ -103,7 +110,7 @@
               <p>The current price for one Raffle Ticket is 0.1 NAS</p>
               <div class="ticketNumber">
                 <label for="ticketNum">Please enter your name</label>
-                <input type="text" id="ticketNum" name="ticketNum">
+                <input type="text" id="Name" name="Name">
               </div>
 							<ul class="actions">
 								<li><button class="button scrolly" onclick="calcPrice()">Enter the Raffle!</button></li>
