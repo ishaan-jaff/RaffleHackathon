@@ -113,7 +113,8 @@
 
 		}
 
-	// Scrolly.
+	// Scrolly
+	/*
 		$('.scrolly').scrolly({
 			speed: 1000,
 			offset: function() {
@@ -128,6 +129,7 @@
 
 			}
 		});
+		*/
 
 	// Spotlights.
 		$('.spotlights > section')

@@ -15,12 +15,19 @@
 	</head>
 	<body class="is-preload">
 	<script src="https://cdn.jsdelivr.net/npm/nebulas@0.5.2/dist/nebulas.js"></script>
+	<script
+  src="https://code.jquery.com/jquery-1.12.4.js"
+  integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+  crossorigin="anonymous"></script>
+  <script src="lib/nebPay.js"></script>
+	
 	<script>
+	/*
 	function myFunction() {
         var api = new Neb().api;
 
-	var height = GetNebState
-	var privKey = account.getPrivateKeyString()
+	var height = GetNebState();
+	var privKey = account.getPrivateKeyString();
 
 
 	 var tx = new Transaction({
@@ -35,10 +42,40 @@
 	       function: "save",
 	       args: "[0]"
 
-	});
+	}});
 	tx.signTransaction();
 
 	}
+	*/
+	
+	function calcPrice(){
+	/*
+	//alert("HERE");
+		var numTickets = document.getElementById("ticketNum").value;
+		//alert(numTickets);
+		
+		//$("totalPrice").update(0.1 * numTickets);
+		totalPrice = 0.1 * numTickets;
+		document.getElementById("totalPrice").value = totalPrice;
+		//document.getElementById("totalPrice").setAttribute("value", 0.1 * numTickets);
+	*/
+		
+		var NebPay = require("nebpay");
+    var nebPay = new NebPay();    
+    var serialNumber;
+    var options = {
+        goods: {        //commodity description
+            name: "example"
+        },
+        callback: NebPay.config.testnetUrl,   //tx result query server address
+        listener: undefined //specify a listener function for browser extension, which will handle the tx result
+    }
+    serialNumber = nebPay.pay("nnmXdmwuo5jJRExnZR5rbceMEyzRsPeALgm", 0, options); //a serialNumber will be returned when calling the NebPay API, then you can query the tx result with this SerialNumber
+	}
+	/*
+	window.onload = function(){
+	calcPrice();
+	}*/
         </script>
 
 		<!-- Sidebar -->
@@ -65,11 +102,12 @@
 							<p>A futuristic way to pay for entering a Raffle<a href="http://html5up.net/license"></a>.</p>
               <p>The current price for one Raffle Ticket is 0.1 NAS</p>
               <div class="ticketNumber">
-                <label for="ticketNum">Enter the number of tickets you would like to buy</label>
-                <input type="text" id="ticketNum" name="ticketNum"
+                <label for="ticketNum">Please enter your name</label>
+                <input type="text" id="ticketNum" name="ticketNum">
               </div>
 							<ul class="actions">
-								<li><button class="button scrolly">Enter the Raffle!</a></li>
+								<li><button class="button scrolly" onclick="calcPrice()">Enter the Raffle!</button></li>
+								<!--<li>The total price is <input id="totalPrice" type="text" /></li>-->
 							</ul>
 						</div>
 					</section>
