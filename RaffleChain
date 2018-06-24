@@ -31,6 +31,32 @@ RaffleHackathon/RaffleChain
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
+	<script src="https://cdn.jsdelivr.net/npm/nebulas@0.5.2/dist/nebulas.js"></script>
+	<script>
+	function myFunction() {
+        var api = new Neb().api;
+
+	var height = GetNebState
+	var privKey = account.getPrivateKeyString()
+
+
+	 var tx = new Transaction({
+	   chainID: 1001,
+	   from: privKey,
+	   to: "n1SAeQRVn33bamxN4ehWUT7JGdxipwn8b17",
+	   value: 10,
+	   nonce: 12,
+	   gasPrice: 1000000,
+	   gasLimit: 2000000,
+	   contract: {
+	       function: "save",
+	       args: "[0]"
+
+	});
+	tx.signTransaction();
+
+	}
+        </script>
 
 		<!-- Sidebar -->
 			<section id="sidebar">
